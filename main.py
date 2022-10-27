@@ -1,14 +1,11 @@
 from twitchio.ext import commands
 
-import asyncio
 import os
 import sys
 
 from dotenv import load_dotenv
 
 load_dotenv()
-
-
 class Bot(commands.Bot):
 
     def __init__(self):

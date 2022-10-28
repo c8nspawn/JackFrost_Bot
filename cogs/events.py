@@ -1,9 +1,11 @@
 from twitchio.ext import commands
+import json
 
-@commands.cog()
-class Events:
+
+class Events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.blacklist = json.load(open("./data/blacklist.json",'r'))
 
     @commands.Cog.event()
     async def event_message(self, message):
@@ -11,16 +13,8 @@ class Events:
             pass
             # filter goes here, use 
 
-        offense_score = {
-            1:["this", "is", "a", "one"],
-            2:["a", "two"]
-        }
-
-        def score_assigner(message):
-            if any(map(lambda x: message in x, [e for e in offense_score.values()])):
-                print('yeah')
-        
-        score_assigner("this")
+        if any(map(lambda x: x in self.blacklist, message.content.split(" "))):
+            await message.channel.send(f"/delete {message.tags['id']}")
 
 
 

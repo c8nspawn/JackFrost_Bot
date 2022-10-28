@@ -1,7 +1,7 @@
 from twitchio.ext import commands
 
-@commands.cog()
-class UpdateFilter:
+
+class UpdateFilter(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

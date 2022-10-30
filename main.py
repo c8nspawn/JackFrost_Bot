@@ -15,6 +15,20 @@ class Bot(commands.Bot):
                 if filename.endswith('.py'):
                     self.load_module(f'cogs.{filename[:-3]}')
                 
+    @commands.command()
+    async def load(self, ctx, *, args):
+        print(args)
+        self.load_module(f"cogs.{args}")
+
+    @commands.command()
+    async def unload(self, ctx, *, args):
+        print(args)
+        self.unload_module(f"cogs.{args}")
+
+    @commands.command()
+    async def reload(self, ctx, *, args):
+        print(args)
+        self.reload_module(f"cogs.{args}")
 
     async def event_ready(self):
         print(f'Logged in as | {self.nick}')

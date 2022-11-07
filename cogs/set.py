@@ -10,18 +10,20 @@ class Set(commands.Cog):
 
     @commands.command()
     async def set(self, ctx, *, string):
+        if not ctx.author.is_mod: return
         self.bot.unload_module('cogs.events')
         try:
-            setfile = open('./data/setcommands.json', 'r')
-            setcommands = json.load(setfile)
-            setfile.close()
+            with open('./data/setcommands.json', 'r') as setfile:
+                setcommands = json.load(setfile)
+                
             splitstring = string.split(' ')
             setcommands[splitstring[0]] = ' '.join(splitstring[1:])
 
-            setfile = open('./data/setcommands.json', 'w+')
-            json.dump(setcommands, setfile, indent = 4)
-            setfile.close()
+            with open('./data/setcommands.json', 'w+') as setfile:
+                json.dump(setcommands, setfile, indent = 4)
+
         except: pass
+        
         self.bot.load_module('cogs.events')
 
 

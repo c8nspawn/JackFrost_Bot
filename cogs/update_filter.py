@@ -9,20 +9,22 @@ class UpdateFilter(commands.Cog):
 
     @commands.command()
     async def banword(self, ctx, *, word: str):
+        if not ctx.author.is_mod: return
         self.bot.unload_module('cogs.events')
 
         try:
-            blacklistfile = open("./data/blacklist.json",'r')
-            blacklist = json.load(blacklistfile)
-            blacklistfile.close()
+            with open("./data/blacklist.json",'r') as blacklistfile:
+                blacklist = json.load(blacklistfile)
 
             blacklist.append(word)
-            blacklistfile = open("./data/blacklist.json",'w+')
-            json.dump(blacklist, blacklistfile) 
-            blacklistfile.close()
+
+            with open("./data/blacklist.json",'w+') as blacklistfile:
+                json.dump(blacklist, blacklistfile) 
 
             await ctx.channel.send(f"{word} has been banned")
+        
         except: pass
+
         self.bot.load_module('cogs.events')
 
 def prepare(bot):

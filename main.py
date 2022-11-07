@@ -17,16 +17,19 @@ class Bot(commands.Bot):
                 
     @commands.command()
     async def load(self, ctx, *, args):
+        if not ctx.author.is_mod: return
         print(args)
         self.load_module(f"cogs.{args}")
 
     @commands.command()
     async def unload(self, ctx, *, args):
+        if not ctx.author.is_mod: return
         print(args)
         self.unload_module(f"cogs.{args}")
 
     @commands.command()
     async def reload(self, ctx, *, args):
+        if not ctx.author.is_mod: return
         print(args)
         self.reload_module(f"cogs.{args}")
 

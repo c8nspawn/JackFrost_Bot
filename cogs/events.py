@@ -19,14 +19,14 @@ class Events(commands.Cog):
 
             # filter
         if any(map(lambda x: x in self.blacklist, message.content.split(" "))):
-            await message.channel.send(f"/timeout {message.author.name} 120 Said banned word")
+            if not message.author.is_mod and not message.author.is_broadcaster:
+                await message.channel.send(f"/timeout {message.author.name} 120 Said banned word")
             # await message.channel.send(f"/delete {message.tags['id']}")
         
         #setcommand checker
         # add a cooldown here
-        for command in self.setcommands.keys():
-            if message.content.startswith("?") and message.content[1:].startswith(command):
-                await message.channel.send(self.setcommands[command])
+        if message.content.startswith("?") and message.content[1:] in self.setcommands:
+            await message.channel.send(self.setcommands[message.content[1:]])
 
 def prepare(bot):
     bot.add_cog(Events(bot))

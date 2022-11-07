@@ -22,7 +22,7 @@ class Set(commands.Cog):
             with open('./data/setcommands.json', 'w+') as setfile:
                 json.dump(setcommands, setfile, indent = 4)
 
-        except: pass
+        except:...
         
         self.bot.load_module('cogs.events')
 

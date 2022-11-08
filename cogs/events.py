@@ -33,7 +33,7 @@ class Events(commands.Cog):
         
         # setcommand checker
         # add a cooldown here
-        if message.content.startswith("?") and message.content[1:] in self.__setcommands:
+        if message.content.startswith("?") and message.content[1:] in self.__setcommands and not self.__setcommands_cooldown:
             self.__setcommands_cooldown = True
             await message.channel.send(self.__setcommands[message.content[1:]])
             self.__setcommands_cooldown = await self.cooldown()

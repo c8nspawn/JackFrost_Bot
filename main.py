@@ -12,7 +12,7 @@ class Bot(commands.Bot):
         super().__init__(
         token=os.getenv("TOKEN"), 
         prefix=os.getenv("PREFIX"), 
-        initial_channels=[os.getenv("STREAMER")]
+        initial_channels=[os.getenv("STREAMER1"), os.getenv("STREAMER2")]
         )
                 
         for filename in os.listdir('./cogs'):
@@ -23,19 +23,16 @@ class Bot(commands.Bot):
     @commands.command()
     async def load(self, ctx, *, args):
         if not ctx.author.is_mod: return
-        print(args)
         self.load_module(f"cogs.{args}")
                 
     @commands.command()
     async def unload(self, ctx, *, args):
         if not ctx.author.is_mod: return
-        print(args)
         self.unload_module(f"cogs.{args}")
 
     @commands.command()
     async def reload(self, ctx, *, args):
         if not ctx.author.is_mod: return
-        print(args)
         self.reload_module(f"cogs.{args}")
 
     async def event_ready(self):

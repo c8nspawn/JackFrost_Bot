@@ -11,10 +11,10 @@ class Events(commands.Cog):
         self.__setcommands_cooldown = False
         with open("./data/blacklist.json",'r') as blacklistfile:
             self.__blacklist = json.load(blacklistfile)
-        with open("./data/setcommands.json",'r') as setcommandsfile:    
-            self.__setcommands = json.load(setcommandsfile)
-        
     
+    with open("./data/setcommands.json",'r') as setcommandsfile:    
+        __setcommands = json.load(setcommandsfile)
+        
     
     async def cooldown(self):
             await asyncio.sleep(10)
@@ -33,6 +33,11 @@ class Events(commands.Cog):
         
         # setcommand checker
         # add a cooldown here
+    
+    # for key,value in __setcommands.items():
+    #     @commands.command(aliases = [key])
+    #     async def key(self, ctx):
+    #         await ctx.channel.send()
         if message.content.startswith("?") and message.content[1:] in self.__setcommands and not self.__setcommands_cooldown:
             self.__setcommands_cooldown = True
             await message.channel.send(self.__setcommands[message.content[1:]])

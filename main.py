@@ -35,6 +35,10 @@ class Bot(commands.Bot):
         if not ctx.author.is_mod: return
         self.reload_module(f"cogs.{args}")
 
+    @commands.command()
+    async def showcommands(self, ctx):
+        print(self.commands)
+
     async def event_ready(self):
         print(f'Logged in as | {self.nick}')
         print(f'User id is | {self.user_id}')

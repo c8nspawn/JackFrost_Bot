@@ -13,10 +13,9 @@ class Love(commands.Cog):
 
     @commands.command()
     async def love(self, ctx, *, lover):
-        if not self.__cooldown:
-            self.__cooldown = True
-            await ctx.channel.send(f"There is {round(random(),2) * 100:.0f}% love between {ctx.author.name} and {lover}!")
-            self.__cooldown = await self.cooldown()
+        self.__cooldown = True
+        await ctx.channel.send(f"There is {round(random(),2) * 100:.0f}% love between {ctx.author.name} and {lover}!")
+        self.__cooldown = await self.cooldown()
 
 def prepare(bot):
     bot.add_cog(Love(bot))

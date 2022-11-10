@@ -1,8 +1,5 @@
 from twitchio.ext import commands
-
-import os
-import sys
-
+from os import getenv,listdir
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -10,21 +7,20 @@ class Bot(commands.Bot):
 
     def __init__(self):
         super().__init__(
-        token=os.getenv("TOKEN"), 
-        prefix=os.getenv("PREFIX"), 
-        initial_channels=[os.getenv("STREAMER1"), os.getenv("STREAMER2")]
+        token=getenv("TOKEN"), 
+        prefix=getenv("PREFIX"), 
+        initial_channels=[getenv("STREAMER1"), getenv("STREAMER2")]
         )
                 
-        for filename in os.listdir('./cogs'):
+        for filename in listdir('./cogs'):
                 if filename.endswith('.py'):
                     self.load_module(f'cogs.{filename[:-3]}')
-        
         
     @commands.command()
     async def load(self, ctx, *, args):
         if not ctx.author.is_mod: return
         self.load_module(f"cogs.{args}")
-                
+
     @commands.command()
     async def unload(self, ctx, *, args):
         if not ctx.author.is_mod: return
@@ -36,7 +32,7 @@ class Bot(commands.Bot):
         self.reload_module(f"cogs.{args}")
 
     @commands.command()
-    async def showcommands(self, ctx):
+    async def _showcommands(self, ctx):
         print(self.commands)
 
     async def event_ready(self):

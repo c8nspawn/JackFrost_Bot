@@ -1,6 +1,6 @@
 from twitchio.ext import commands
-import asyncio
-import json
+from asyncio import sleep
+from json import load
 
 
 class Events(commands.Cog):
@@ -10,14 +10,12 @@ class Events(commands.Cog):
         self.__setcommands = 0 
         self.__setcommands_cooldown = False
         with open("./data/blacklist.json",'r') as blacklistfile:
-            self.__blacklist = json.load(blacklistfile)
-    
-    with open("./data/setcommands.json",'r') as setcommandsfile:    
-        __setcommands = json.load(setcommandsfile)
-        
+            self.__blacklist = load(blacklistfile)
+        with open("./data/setcommands.json",'r') as setcommandsfile:    
+            self.__setcommands = load(setcommandsfile)
     
     async def cooldown(self):
-            await asyncio.sleep(10)
+            await sleep(10)
             return False
         
     @commands.Cog.event()
@@ -32,12 +30,6 @@ class Events(commands.Cog):
             # await message.channel.send(f"/delete {message.tags['id']}")
         
         # setcommand checker
-        # add a cooldown here
-    
-    # for key,value in __setcommands.items():
-    #     @commands.command(aliases = [key])
-    #     async def key(self, ctx):
-    #         await ctx.channel.send()
         if message.content.startswith("?") and message.content[1:] in self.__setcommands and not self.__setcommands_cooldown:
             self.__setcommands_cooldown = True
             await message.channel.send(self.__setcommands[message.content[1:]])

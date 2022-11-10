@@ -1,5 +1,5 @@
 from twitchio.ext import commands
-import json
+from json import load,dump
 
 #remove component of set command
 
@@ -14,13 +14,13 @@ class Remove(commands.Cog):
 
         try:
             with open('./data/setcommands.json', 'r') as setfile:
-                setcommands = json.load(setfile)
+                setcommands = load(setfile)
                 
             splitstring = string.split(' ')
             del setcommands[splitstring[0]]
 
             with open('./data/setcommands.json', 'w+') as setfile:
-                json.dump(setcommands, setfile, indent = 4)
+                dump(setcommands, setfile, indent = 4)
         
         except:...
 

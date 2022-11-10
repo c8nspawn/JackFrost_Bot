@@ -1,5 +1,5 @@
 from twitchio.ext import commands
-import json
+from json import load, dump
 
 
 class RemoveFilter(commands.Cog):
@@ -14,12 +14,12 @@ class RemoveFilter(commands.Cog):
 
         try:
             with open("./data/blacklist.json",'r') as blacklistfile:
-                blacklist = json.load(blacklistfile)
+                blacklist = load(blacklistfile)
 
             blacklist.remove(word)
 
             with open("./data/blacklist.json",'w+') as blacklistfile:
-                json.dump(blacklist, blacklistfile) 
+                dump(blacklist, blacklistfile) 
 
             await ctx.channel.send(f"{word} has been banned")
         

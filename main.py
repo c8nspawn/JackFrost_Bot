@@ -33,6 +33,7 @@ class Bot(commands.Bot):
 
     @commands.command()
     async def _showcommands(self, ctx):
+        if not ctx.author.is_mod: return
         print(self.commands)
 
     async def event_ready(self):

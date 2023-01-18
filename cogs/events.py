@@ -11,8 +11,6 @@ class Events(commands.Cog):
         self.__setcommands_cooldown = False
         with open("./data/blacklist.json",'r') as blacklistfile:
             self.__blacklist = load(blacklistfile)
-        with open("./data/setcommands.json",'r') as setcommandsfile:    
-            self.__setcommands = load(setcommandsfile)
     
     async def cooldown(self):
             await sleep(10)
@@ -28,14 +26,6 @@ class Events(commands.Cog):
             not message.author.is_mod and not message.author.is_broadcaster:
                 await message.channel.send(f"/timeout {message.author.name} 120 Said banned word")
             # await message.channel.send(f"/delete {message.tags['id']}")
-        
-        # setcommand checker
-        if message.content.startswith("?") and message.content[1:] in self.__setcommands and not self.__setcommands_cooldown:
-            self.__setcommands_cooldown = True
-            await message.channel.send(self.__setcommands[message.content[1:]])
-            self.__setcommands_cooldown = await self.cooldown()
-
-    
 
 def prepare(bot):
     bot.add_cog(Events(bot)) 
